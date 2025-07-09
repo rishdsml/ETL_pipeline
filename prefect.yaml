@@ -5,7 +5,6 @@ pull:
 - prefect.deployments.steps.git_clone:
     repository: https://github.com/rishdsml/ETL_pipeline.git
     branch: main
-    access_token: null
     credentials_block: gitpattoken
 
 deployments:
