@@ -5,7 +5,7 @@ pull:
 - prefect.deployments.steps.git_clone:
     repository: https://github.com/rishdsml/ETL_pipeline.git
     branch: main
-    credentials_block: gitpattoken
+
 
 deployments:
 - name: hardcoded-test
