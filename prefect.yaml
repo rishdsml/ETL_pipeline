@@ -16,6 +16,13 @@ deployments:
   schedule: {}
   version: 1.0.0
 
+  infra_overrides:
+    env:
+      PREFECT_PRE_EXECUTION_SCRIPT: |
+        python -m pip install --upgrade pip  
+        pip install -r requirements.txt     
+
+
   work_pool:
     name: default
     work_queue_name: default
