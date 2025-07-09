@@ -1,0 +1,24 @@
+name: medvol_test
+prefect-version: 3.4.7
+
+pull:
+- prefect.deployments.steps.git_clone:
+    repository: https://github.com/rishdsml/ETL_pipeline.git
+    branch: main
+    access_token: null
+    credentials_block: gitpattoken
+
+deployments:
+- name: hardcoded-test
+  entrypoint: etl_prefect.py:InsertUpdateRFMFlow
+  parameters: {}
+  tags: []
+  description: Run hardcoded ETL from July 1–8
+  schedule: {}
+  version: 1.0.0
+
+  work_pool:
+    name: default
+    work_queue_name: default
+    job_variables: {}
+
