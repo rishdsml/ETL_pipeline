@@ -16,12 +16,13 @@ deployments:
     version: 1.0.0
 
     work_pool:
-      name: etl-pool
+      name: default
       work_queue_name: default
       job_variables:
         image: prefecthq/prefect:3-python3.12
         pre_execution_script: |
-          pip install -r ETL_pipeline/requirements.txt
+          pip install --no-cache-dir -r requirements.txt
+
 
 
 
