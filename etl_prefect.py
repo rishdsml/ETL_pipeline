@@ -868,6 +868,8 @@ def InsertUpdateOrderViewTask():
 
 @flow
 def InsertUpdateRFMFlow():
+    import pandas as pd
+    import pyodbc
     CompleteSuperDashboardTask()
 
 
