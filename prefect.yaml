@@ -19,9 +19,7 @@ deployments:
       name: default
       work_queue_name: default
       job_variables:
-        image: prefecthq/prefect:3-python3.12
-        pre_execution_script: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        image: rishhhav/etl-prefect:latest 
+
 
 
