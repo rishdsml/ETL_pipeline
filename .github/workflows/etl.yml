@@ -6,13 +6,16 @@ on:
 jobs:
   etl-job:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Install SQL Server ODBC driver
         run: |
+          sudo apt-get update
+          sudo apt-get install -y curl gnupg
           curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-          curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
           sudo apt-get update
           sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev
 
@@ -26,6 +29,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: 🔍 Test Network Connectivity to SQL Server (source)
+        run: |
+          echo "Pinging SQLDBTest.Medvol.in..."
+          ping -c 4 SQLDBTest.Medvol.in || echo "Ping failed"
+
+          echo "Checking TCP Port 1433..."
+          timeout 10 bash -c "cat < /dev/null > /dev/tcp/SQLDBTest.Medvol.in/1433" \
+            && echo "✅ Port 1433 is open!" || echo "❌ Cannot reach port 1433"
+
+      - name: 🌐 Print Runner IP for Allowlisting (if needed)
+        run: curl https://api.ipify.org
+
       - name: Run ETL Script
         run: python etl_prefect.py
+
+
 
