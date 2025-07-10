@@ -868,8 +868,9 @@ def InsertUpdateOrderViewTask():
 
 @flow
 def InsertUpdateRFMFlow():
-    import pandas as pd
-    import pyodbc
     CompleteSuperDashboardTask()
+
+if __name__ == "__main__":
+    InsertUpdateRFMFlow()
 
 
